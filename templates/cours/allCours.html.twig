@@ -1,0 +1,37 @@
+{% extends 'home/index.html.twig' %}
+{% block cours  %}
+<div class="row">
+
+				<div class="col" style="background-size:50%;">
+
+					<div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+                {% for produit in produits %}
+
+						<!-- Product 1 -->
+
+						<div class="product-item men">
+							<div class="product discount product_filter">
+								<div class="product_image">
+									<img src="data:image/png;base64,{{ produit.image }}" width="400" height="200" alt="">
+								</div>
+								<div class="favorite favorite_left"></div>
+								<div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
+								<div class="product_info">
+									<h6 class="product_name"><a href="single.html">{{produit.titreCours}}</a></h6>
+                                    <span>{{produit.etiquette}}</span>
+									<div class="product_price"><span>{{produit.prix}}</span></div>
+								</div>
+							</div>
+							<div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+						</div>
+                        {% endfor %}
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}
+	{% block meilleurs_ventes %}
+{% endblock %}
+

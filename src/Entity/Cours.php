@@ -51,7 +51,7 @@ class Cours
      */
     private $visibilite;
     private $users;
-     /**
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Projet", mappedBy="user")
      */
     private $projets;
@@ -61,17 +61,23 @@ class Cours
      */
     private $categorie;
 
-     /**
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Chapitre", mappedBy="cour")
      */
     private $chapitres;
 
-     /**
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="cour")
      */
     private $commentaires;
 
-    public function __construct() {
+    /**
+     * @ORM\Column(type="blob")
+     */
+    private $image;
+
+    public function __construct()
+    {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -163,5 +169,16 @@ class Cours
 
         return $this;
     }
-  
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
 }
