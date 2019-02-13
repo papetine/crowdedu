@@ -25,6 +25,8 @@ class Categorie
      */
     private $cours;
 
+    
+
     public function getId(): ?int
     {
         return $this->id;
@@ -41,4 +43,6 @@ class Categorie
 
         return $this;
     }
+
+   
 }

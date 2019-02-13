@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="Colo Shop Template">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-{% block css %}
+{% block stylesheet %}
 <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap4/bootstrap.min.css')}}">
 <link href="{{asset('plugins/font-awesome-4.7.0/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="{{asset('plugins/OwlCarousel2-2.2.1/owl.carousel.css')}}">
@@ -14,6 +14,10 @@
 <link rel="stylesheet" type="text/css" href="{{asset('plugins/OwlCarousel2-2.2.1/animate.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('css/main_styles.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('css/responsive.css')}}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 {% endblock %}
 </head>
 
@@ -69,10 +73,17 @@
 										My Account
 										<i class="fa fa-angle-down"></i>
 									</a>
+									
 									<ul class="account_selection">
-										<li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign In</a></li>
-										<li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i>Register</a></li>
-									</ul>
+										{% if app.user != null %}
+										<li><a href="{{path('security_logout')}}">Déconnexion</a></li>
+										{% else %}
+										<li><a href="{{path('registration')}}">S'inscrire</a></li>
+											
+										<li><a href="{{path('login')}}">Se connecter</a></li>
+										{% endif %}
+										
+					</ul>
 								</li>
 							</ul>
 						</div>
@@ -88,7 +99,7 @@
 				<div class="row">
 					<div class="col-lg-12 text-right">
 						<div class="logo_container">
-							<a href="#"> <img src="{{asset('img/logo_crowdedu.png')}}"  width="100" height="70" /></a>
+							<a href="#"> <img src="{{asset('img/logo_crowdedu.png')}}"  width="150" height="50" /></a>
 						</div>
 						<nav class="navbar">
 							<ul class="navbar_menu">
@@ -155,8 +166,12 @@
 						<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="menu_selection">
-						<li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign In</a></li>
-						<li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i>Register</a></li>
+						<li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Connexion</a></li>
+						<li><a href="{{path('registration')}}"><i class="fa fa-user-plus" ></i>Inscrit</a></li>
+					
+				
+					<li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Déconnexion</a></li>
+				
 					</ul>
 				</li>
 				<li class="menu_item"><a href="#">home</a></li>
@@ -246,7 +261,8 @@
 
 
 	<!-- New Arrivals -->
-
+{% endblock %}
+{% block cat %}
 	<div class="new_arrivals">
 		<div class="container">
 			<div class="row">
@@ -271,7 +287,7 @@
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div><br><br><br>
 {% endblock %}
 {% block cours %}
 			<div class="row">
@@ -450,7 +466,7 @@
 	{% endblock %}
 
 	<!-- Deal of the week -->
-
+	{% block deal %}
 	<div class="deal_ofthe_week">
 		<div class="container">
 			<div class="row align-items-center">
@@ -488,7 +504,7 @@
 			</div>
 		</div>
 	</div>
-
+	{% endblock %}
 	<!-- Best Sellers -->
 	{% block meilleurs_ventes %}
 

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CoursRepository")
@@ -76,6 +78,12 @@ class Cours
      */
     private $image;
 
+    /**
+     * @Gedmo\Slug(fields={"titreCours", "etiquette"})
+     * @ORM\Column(length=128, unique=true)
+     */
+        private $slug;
+    
     public function __construct()
     {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
@@ -178,6 +186,30 @@ class Cours
     public function setImage($image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Get the value of categorie
+     */ 
+    public function getCategorie()
+    {
+        return $this->categorie;
+    }
+
+    /**
+     * Set the value of categorie
+     *
+     * @return  self
+     */ 
+    public function setCategorie($categorie)
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }

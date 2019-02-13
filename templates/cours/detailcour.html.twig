@@ -1,0 +1,25 @@
+{% extends 'home/index.html.twig' %}
+{% block background %}{% endblock %}
+{% block categories %}{% endblock %}
+{% block deal %}{% endblock %}
+{% block options %}{% endblock %}
+{% block latest %}{% endblock %}
+{% block newsletter %}{% endblock %}
+{% block meilleurs_ventes %}{% endblock %}
+
+{% block cours  %}<div class="product-item men">
+							<div class="product discount product_filter">
+								<div class="product_image">
+									<img src="data:image/png;base64,{{ cour.image }}" width="400" height="200" alt="">
+								</div>
+								<div class="favorite favorite_left"></div>
+								<div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
+								<div class="product_info">
+									<h6 class="product_name"><a href="{{path('cour', {'slug':cour.slug})}}">{{cour.titreCours}}</a></h6>
+                                    <span>{{cour.etiquette}}</span>
+									<div class="product_price"><span>{{cour.prix}}</span></div>
+								</div>
+							</div>
+							<div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+						</div>
+{% endblock %}

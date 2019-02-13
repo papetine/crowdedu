@@ -1,0 +1,66 @@
+security:
+    encoders:
+        App\Entity\User: bcrypt
+
+    providers:
+        database_users:
+            entity: { class: App\Entity\User, property: username }
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            # les urls auxquels s'appliquent ce firewall, dans ce cas, ce sont toutes les urls
+            pattern: ^/
+
+            # La connexion n'est pas requise sur toutes les pages
+            # par exemple la page d'accueil
+            anonymous: true
+
+            form_login:
+                # Le nom de la route de la page de connexion
+                check_path: login
+                # Le nom de la route où se trouve le formulaire de connexion
+                # Si un utilisateur tente d'acceder à une page protégée sans en avoir les droits
+                # il sera redirigé sur cette page
+                login_path: login
+                # Securisation des formulaires
+                csrf_token_generator: security.csrf.token_manager
+                # La page par defaut apres une connexion reussie
+                default_target_path: cours
+
+            logout:
+                # La route où se trouve le process de deconnexion
+                path: security_logout
+                # La route sur laquelle doit etre rediriger l'utilisateur apres une deconnexion
+                target: login
+
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800 # 1 semaine en secondes
+                path:     /
+                # Par défaut, la fonctionnalité est activée en vérifiant un case à cocher dans le formulaire de connexion
+                # Décommentez le ligne suivante pour toujours l'activer
+                #<input type="checkbox" id="remember_me" name="_remember_me" checked />
+                #always_remember_me: true
+    # knpu_oauth2_client:
+    # clients:
+    #     google:
+    #         # must be "google" - it activates that type!
+    #         type: google
+    #         # add and configure client_id and client_secret in parameters.yml
+    #         client_id: '%env(resolve:GOOGLE_CLIENT_ID)%'
+    #         client_secret: '%env(resolve:GOOGLE_CLIENT_SECRET)%'
+    #         # a route name you'll create
+    #         redirect_route: connect_google_check
+    #         redirect_params: {}
+
+    # role_hierarchy:
+    #     ROLE_ADMIN:      ROLE_USER
+    #     #ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/dashboard, roles: ROLE_ADMIN }
+        - { path: ^/etudiant, roles: ROLE_USER }

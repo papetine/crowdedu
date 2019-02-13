@@ -4,11 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -28,12 +29,12 @@ class User
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,unique=true)
      */
     private $email;
 
@@ -55,23 +56,43 @@ class User
     /**
      * @ORM\Column(type="boolean")
      */
-    private $is_active;
+    private $isActive;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
-    private $reset_token;
+    private $resetToken;
 
     
     /**
-   * @ORM\ManyToMany(targetEntity="App\Entity\Cours", cascade={"persist"})
-   */
-        private $cours;
+     * @ORM\ManyToMany(targetEntity="App\Entity\Cours", cascade={"persist"})
+     */
+    private $cours;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="user")
      */
     private $commentaires;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $dateNaissance;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lieuNaissance;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $age;
+
+    /**
+     * @ORM\Column(type="string", length=3)
+     */
+    private $sexe;
 
     public function getId(): ?int
     {
@@ -138,11 +159,16 @@ class User
         return $this;
     }
 
-    public function getRoles(): ?array
+    public function getRoles(): array
     {
-        return $this->roles;
-    }
+        $roles = $this->roles;
 
+        // Afin d'être sûr qu'un user a toujours au moins 1 rôle
+        if (empty($roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+        return array_unique($roles);
+    }
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -164,28 +190,114 @@ class User
 
     public function getIsActive(): ?bool
     {
-        return $this->is_active;
+        return $this->isActive;
     }
 
-    public function setIsActive(bool $is_active): self
+    public function setIsActive(bool $isActive): self
     {
-        $this->is_active = $is_active;
+        $this->isActive = $isActive;
 
         return $this;
     }
 
     public function getResetToken(): ?string
     {
-        return $this->reset_token;
+        return $this->resetToken;
     }
 
-    public function setResetToken(string $reset_token): self
+    public function setResetToken(string $resetToken): self
     {
-        $this->reset_token = $reset_token;
+        $this->resetToken = $resetToken;
 
         return $this;
     }
     public function __construct() {
-        $this->cours = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cours = new \Doctrine\Common\Collections\ArrayCollection();        
+            $this->isActive = true;
+            // $this->projets = new ArrayCollection();
+            // may not be needed, see section on salt below
+            $this->roles = array('ROLE_USER');
+        
+    }
+    /** @see \Serializable::serialize() */
+    public function serialize() {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->username,
+            $this->isActive,
+                // see section on salt below
+                // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized) {
+        list (
+                $this->id,
+                $this->email,
+                $this->password,
+                $this->username,
+                $this->isActive,
+                // see section on salt below
+                // $this->salt
+                ) = unserialize($serialized);
+    }  
+    public function getDateNaissance(): ?string
+    {
+        return $this->dateNaissance;
+    }
+
+    public function setDateNaissance(string $dateNaissance): self
+    {
+        $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+    public function getLieuNaissance(): ?string
+    {
+        return $this->lieuNaissance;
+    }
+
+    public function setLieuNaissance(string $lieuNaissance): self
+    {
+        $this->lieuNaissance = $lieuNaissance;
+
+        return $this;
+    }
+
+    public function getAge(): ?int
+    {
+        return $this->age;
+    }
+
+    public function setAge(int $age): self
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    public function getSexe(): ?string
+    {
+        return $this->sexe;
+    }
+
+    public function setSexe(string $sexe): self
+    {
+        $this->sexe = $sexe;
+
+        return $this;
+    }
+    public function getSalt()
+    {
+        // The bcrypt and argon2i algorithms don't require a separate salt.
+        // You *may* need a real salt if you choose a different encoder.
+        return null;
+    }
+    public function eraseCredentials()
+    {
     }
 }
