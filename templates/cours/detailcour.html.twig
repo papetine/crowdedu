@@ -1,25 +1,304 @@
-{% extends 'home/index.html.twig' %}
-{% block background %}{% endblock %}
-{% block categories %}{% endblock %}
-{% block deal %}{% endblock %}
-{% block options %}{% endblock %}
-{% block latest %}{% endblock %}
-{% block newsletter %}{% endblock %}
-{% block meilleurs_ventes %}{% endblock %}
-
-{% block cours  %}<div class="product-item men">
-							<div class="product discount product_filter">
-								<div class="product_image">
-									<img src="data:image/png;base64,{{ cour.image }}" width="400" height="200" alt="">
-								</div>
-								<div class="favorite favorite_left"></div>
-								<div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
-								<div class="product_info">
-									<h6 class="product_name"><a href="{{path('cour', {'slug':cour.slug})}}">{{cour.titreCours}}</a></h6>
-                                    <span>{{cour.etiquette}}</span>
-									<div class="product_price"><span>{{cour.prix}}</span></div>
-								</div>
-							</div>
-							<div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+	{% extends 'home/index.html.twig' %}
+	{% block categories %}{% endblock %}
+	{% block deal %}{% endblock %}
+	{% block options %}{% endblock %}
+	{% block latest %}{% endblock %}
+	{% block newsletter %}{% endblock %}
+	{% block meilleurs_ventes %}{% endblock %}
+	{% block cat %}{% endblock %}
+	{% block section %}{% endblock %}
+	{% block cours  %}{% endblock %}
+	{% block background %}
+	<style>
+	ul.breadcrumb {
+	padding: 30px 16px;
+	list-style: none !important;
+	background-color: #96bf31;
+	}
+	ul.breadcrumb li {
+	display: inline;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-family:ubuntu;
+	}
+	ul.breadcrumb li+li:before {
+	padding: 8px;
+	color: #ffffff;
+	content: "/\00a0";
+	}
+	ul.breadcrumb li a {
+	color: #ffffff;
+	text-decoration: none;
+	}
+	ul.breadcrumb li a:hover {
+	color: #fff;
+	text-decoration: none;
+	}
+	a{
+	background-color: transparent;
+	}
+	.el{
+	color: #ffffff !important;	
+	}
+	h1{
+	color: #ffffff !important;	
+	margin-top:-30px;
+	}
+	.bp_filled_stars {
+	position: absolute;
+	top: 0;
+	color: #FFCB10;
+	overflow: hidden;
+	float: left;
+	left: 0;
+	}
+	span[id^="grade-"]:hover {
+						opacity: 0.5;
+				}
+	#etoile{
+			
+			list-style-type: none;
+	}
+	#lio{
+		color:#FFCB10;
+	}
+	.button{
+	background-color: #96bf31;
+	font-family:ubuntu;
+	color:#053651;
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+	width: 100%;
+	text-align: center;
+		border-radius: 2px;
+	letter-spacing: .1em;
+	position: relative;
+	transition: all .3s;
+	z-index: 1;
+	font-size: 12px;
+		font-weight: 600;
+		outline: 0;
+	}
+	.button:hover{
+	color:#fff;
+	}
+	.prix{
+	font-family:ubuntu;
+	color:#96bf31;
+	font-size: 14px;
+	padding-left: 2px;
+	margin-left:7px;
+	margin-top:10px;
+	text-transform: uppercase;
+	}
+	.cadre{
+	height:auto;
+	width:auto;
+	}
+	.titre{
+	height:20%;
+	}
+	.badge{
+	color:#696969;
+	font-size: 14px;
+	padding:10px;
+	}
+	.font{
+	font-size:30px;
+	}
+	.acceuil{
+		color:#696969;
+		font-family:ubuntu;
+	}
+	.tr{
+		font-size:12px;		
+	}
+	.tr td a {
+		color:#686868;
+	}
+	.statu{
+		width:100px;
+		height:20px;
+		font-size:12px;
+		background: #70c989;
+		padding: 2px 8px;
+		margin-left: 10px;
+		color:#fff;
+    	border-radius: 2px;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+	}
+	.tabla{
+		padding: 15px 20px;
+		letter-spacing: 1px;		
+		font-size: 11px;
+		text-transform: uppercase;
+		opacity: .9;
+		font-weight: 600;
+			
+	}
+	.item  {
+	color: #3d3d3d;
+	}
+	.item:hover {
+	color:#053651;
+	}
+	.addition{
+		margin-left:700px;
+		color:#D3D3D3;
+		font-size:32px;
+	}
+	</style>
+	<div class="main_slider" style="background:#96bf31;height:800">
+		<div class="container fill_height">
+				<ul class="breadcrumb">
+				<li class="el"><a href="#">Accueil</a></li>
+				<li class="el"><a href="#">Cours</a></li>
+				<li class="el"><a href="#">Marketing</a></li>
+				<li class="el"><a href="#">Business</a></li>
+				<li style="color:#fff;font-family:ubuntu;">{{cour.titreCours}}</li>
+				</ul>
+				<h1>{{cour.titreCours}}</h1>
+			<div class="row">
+						<div class="col-lg-3">
+							<ol id="etoile">
+								<li class="li" id="lio"> </li>
+							</ol>
 						</div>
-{% endblock %}
+						<div class="col-lg-3">
+							<div class="students"><i class="fa fa-users" style="color:#fff"></i> 0 PARTICIPANTS</div>
+						</div>
+						<div class="col-lg-6"></div>
+			</div>
+			<div class="row">
+				<div class="col-lg-9">
+				<div class="product_image">
+					<img src="data:image/png;base64,{{ cour.image }}" width="300" height="500" alt="">
+					</div>
+				</div>
+				<div class="col-lg-3">
+				<div class="card cadre">
+			<div class="card-body">				
+				<a href="{{path('show_commande', {'slug':cour.slug})}}" ><button type="button" class="btn button">PRENDRE CETTE FORMATION</button></a>				
+				<p class="card-text prix">CFA {{ cour.prix}} pour 10 jours</p>
+				<ul >
+					<li class="badge">{{cour.duree}}</li><br>
+					<li class="badge">BADGE DE FORMATION</li><i class="fa fa-ribbon"></i>
+					<li class="badge">CERTIFICAT DE FORMATION</li><i class="fa fa-file-certificate" ></i>
+				</ul>
+				<a href="#" class="card-link"><i class="fa fa-facebook-square font"></i></a>
+				<a href="#" class="card-link"><i class="fa fa-twitter-square font" ></i></a>
+				<a href="#" class="card-link"><i class="fa fa-linkedin-square font"></i></a>
+			</div>
+			</div><br>
+			<p style="color:#fff ! important ;font-family:ubuntu;font-size:18px;">Formateurs</p>
+						</div>
+				</div>
+			</div>
+		</div>
+	<div class="container mt-3">
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs tabla">
+	<li class="nav-item">
+		<a class="nav-link active item" data-toggle="tab" href="#home">Acceuil</a>
+	</li>
+	<li class="nav-item ">
+		<a class="nav-link item" data-toggle="tab" href="#menu1">Membres</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link item" data-toggle="tab" href="#menu2">Activités</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link item" data-toggle="tab" href="#menu3">Event</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link item" data-toggle="tab" href="#menu4">Drive</a>
+	</li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+	<div id="home" class="container tab-pane active"><br>
+	<div class="row">
+	<div class="col-lg-8">
+		<h6 class="acceuil"><strong >{{cour.petitDescription}}</strong></h6>
+		<p class="acceuil">{{cour.description}}.</p><br><br><br>
+		<div class="course_curriculum accordion">
+			<h3 class="heading">
+<span style="font-family:ubuntu;text-transform: uppercase;font-size:16px;">Programme de Formation</span>
+</h3>
+<div class="course_curriculum accordion">
+<table class="table">		
+	<tbody>
+	<tr class="course_section show">
+				<td  colspan="4" style="color:#686868;font-family:ubuntu">Section 1: Introduction </td>
+				<i class="fa fa-plus addition" id="hide"></i>
+				
+			</tr>
+			{% for cours in cour.chapitres %}
+			<tr class="course_lesson show tr">
+			<td class="curriculum-icon"><i class="fa fa-play-circle"></i></td>
+				{% if cours.status == true %}
+				<td><a href="#"style="color:#96bf31">{{cours.titreChapitre}}</a></td>			
+				<td><span class="statu" >gratuit</span> </td>				
+				{% else %}
+				<td><a href="#">{{cours.titreChapitre}}</a></td>
+				<td><span class="free"></span> </td>
+				{% endif %}
+				<td><span class="time"><i class="fa fa-clock-o"></i> {{cours.duration}}</span></td>
+				</tr>
+			{% endfor %}
+			</tbody>
+			</table>
+			</div>
+
+		</div>
+	</div>
+	<div class="col-lg-4">
+		<div class="students"><i class="fa fa-users"style="color:#fff;font-family:ubuntu;"></i> <b>0 PARTICIPANTS</b></div>
+	</div>
+		</div>
+	</div>
+	<div id="menu1" class="container tab-pane fade"><br>
+		<h3>Menu 1</h3>
+		<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+	</div>
+	<div id="menu2" class="container tab-pane fade"><br>
+		<h3>Menu 2</h3>
+		<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+	</div>
+	<div id="menu3" class="container tab-pane fade"><br>
+		<h3>Menu 2</h3>
+		<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+	</div>
+	<div id="menu4" class="container tab-pane fade"><br>
+		<h3>Menu 2</h3>
+		<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+	</div>
+	</div>
+	</div>
+
+	{% endblock %}	
+	{% block script %}
+	<script src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
+	<script src="{{asset('js/rate.class.js')}}"></script>
+	<script src="{{asset('css/bootstrap4/popper.js')}}"></script>
+	<script src="{{asset('css/bootstrap4/bootstrap.min.js')}}"></script>
+	<script src="{{asset('plugins/Isotope/isotope.pkgd.min.js')}}"></script>
+	<script src="{{asset('plugins/OwlCarousel2-2.2.1/owl.carousel.js')}}"></script>
+	<script src="{{asset('plugins/easing/easing.js')}}"></script>
+	<script src="{{asset('js/custom.js')}}"></script>
+	<script type="text/javascript">
+		$(function() {
+				$('.li').each(function() {
+						$(this).append(objRate.initRate(objRate.maxRate));
+				});
+
+				$('.fa-star-o, .fa-star').on('mouseenter mouseleave', objRate.hoverHandler);
+				$('.fa-star-o, .fa-star').on('click', objRate.clickHandler);
+		});
+		$("#hide").click(function(){
+		$(".tr").toggle();
+		});
+		</script>
+	{% endblock %}

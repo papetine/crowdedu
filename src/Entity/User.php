@@ -62,18 +62,6 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $resetToken;
-
-    
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Cours", cascade={"persist"})
-     */
-    private $cours;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="user")
-     */
-    private $commentaires;
-
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -93,6 +81,10 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=3)
      */
     private $sexe;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="cour")
+     */
+    private $projets;
 
     public function getId(): ?int
     {
@@ -214,7 +206,6 @@ class User implements UserInterface, \Serializable
     public function __construct() {
         $this->cours = new \Doctrine\Common\Collections\ArrayCollection();        
             $this->isActive = true;
-            // $this->projets = new ArrayCollection();
             // may not be needed, see section on salt below
             $this->roles = array('ROLE_USER');
         

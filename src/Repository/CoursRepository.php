@@ -47,4 +47,35 @@ class CoursRepository extends ServiceEntityRepository
         ;
     }
     */
+    // public function getCoursBycategorie($categorie)
+    //         {
+    //             return $this->createQueryBuilder('c')
+    //                 ->andWhere('c.categorie = :categorie')
+    //                 ->setParameter('categorie', $categorie)
+    //                 // ->select('SUM(d.montant) as somme_montant')
+    //                 ->getQuery()
+    //                 ->getResult();
+    //         }
+
+            function findArray($array){
+
+                return $this->createQueryBuilder('c')
+                    ->andWhere('c.id IN(:array)')
+                    ->setParameter('array', $array)
+                    ->orderBy('c.id', 'ASC')
+                    ->getQuery()
+                    ->getResult();
+            
+            }
+            function produitsByCategorie($categorie){
+                return $this->createQueryBuilder('c')
+                ->where('c.categorie = :categorie')
+                ->andWhere('c.visibilite= 1')
+                ->setParameter('categorie', $categorie)
+                ->orderBy('c.id', 'ASC')
+                ->getQuery()
+                ->getResult();
+                
+            }
+            
 }

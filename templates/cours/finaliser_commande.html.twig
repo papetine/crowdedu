@@ -1,0 +1,105 @@
+{% extends 'home/index.html.twig' %}
+	{% block categories %}{% endblock %}
+	{% block deal %}{% endblock %}
+	{% block options %}{% endblock %}
+	{% block latest %}{% endblock %}
+	{% block newsletter %}{% endblock %}
+	{% block meilleurs_ventes %}{% endblock %}
+	{% block cat %}{% endblock %}
+    {% block cours  %}{% endblock %}
+
+	{% block background %}
+    <style>
+    .slider{
+        background:#96bf31;
+        height:200px;
+    }
+    ul.breadcrumb {
+	padding: 30px 16px;
+	list-style: none !important;
+	background-color: #96bf31;
+	}
+	ul.breadcrumb li {
+	display: inline;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-family:ubuntu;
+	}
+	ul.breadcrumb li+li:before {
+	padding: 8px;
+	color: #ffffff;
+	content: "/\00a0";
+	}
+	ul.breadcrumb li a {
+	color: #ffffff;
+	text-decoration: none;
+	}
+	ul.breadcrumb li a:hover {
+	color: #fff;
+	text-decoration: none;
+	}
+	a{
+	background-color: transparent;
+	}
+	.el{
+	color: #ffffff !important;	
+	}
+    h1{
+	color: #ffffff !important;	
+	margin-top:-30px;
+    font-family:ubuntu;
+	}
+    h5{
+    color: #ffffff !important; 
+    font-family:ubuntu;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+        line-height: 1.35em; 
+    }
+    </style>
+    <div class="main_slider slider" >
+		<div class="container fill_height">
+        <ul class="breadcrumb">
+				<li class="el"><a href="#">Accueil</a></li>
+				<li class="el"><a href="#">Cart</a></li>				
+				{# <li style="color:#fff;font-family:ubuntu;">{{cour.titreCours}}</li> #}
+				</ul>
+                <h1>Cart</h1>
+            <h5> Products in your cart</h5>
+        <div class="row align-items-center fill_height">
+            <div class="col">
+                
+				</div>
+			</div>
+		</div>
+	</div>
+    {% endblock %}
+{% block section %}
+        <div class="container">
+            <div class="row">
+            <div class="col-lg-8">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Produits</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for cours in cour.chapitres %}
+                <tr>
+                    <td></td>
+                    <td>{{cour.}}</td>
+                    <td>john@example.com</td>
+                    <td>john@example.com</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+            <div class="col-lg-4"></div> 
+            </div>
+            </div>
+{% endblock %}

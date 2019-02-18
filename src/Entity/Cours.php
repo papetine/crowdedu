@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CoursRepository")
@@ -52,11 +51,6 @@ class Cours
      * @ORM\Column(type="boolean")
      */
     private $visibilite;
-    private $users;
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Projet", mappedBy="user")
-     */
-    private $projets;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="cours",cascade={"persist"})
@@ -69,11 +63,6 @@ class Cours
     private $chapitres;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="cour")
-     */
-    private $commentaires;
-
-    /**
      * @ORM\Column(type="blob")
      */
     private $image;
@@ -83,11 +72,15 @@ class Cours
      * @ORM\Column(length=128, unique=true)
      */
         private $slug;
-    
-    public function __construct()
-    {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+        /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="cour")
+     */
+    private $projets;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $duree;
 
     public function getId(): ?int
     {
@@ -210,6 +203,38 @@ class Cours
     public function setCategorie($categorie)
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getDuree(): ?string
+    {
+        return $this->duree;
+    }
+
+    public function setDuree(string $duree): self
+    {
+        $this->duree = $duree;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of chapitres
+     */ 
+    public function getChapitres()
+    {
+        return $this->chapitres;
+    }
+
+    /**
+     * Set the value of chapitres
+     *
+     * @return  self
+     */ 
+    public function setChapitres($chapitres)
+    {
+        $this->chapitres = $chapitres;
 
         return $this;
     }

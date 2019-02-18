@@ -1,1 +1,149 @@
-{{courbycate.titreCours}}
+
+{% extends 'home/index.html.twig' %}
+	{% block categories %}{% endblock %}
+	{% block deal %}{% endblock %}
+	{% block options %}{% endblock %}
+	{% block latest %}{% endblock %}
+	{% block newsletter %}{% endblock %}
+	{% block meilleurs_ventes %}{% endblock %}
+	{% block cat %}{% endblock %}
+    {% block cours  %}{% endblock %}
+
+	{% block background %}
+    <style>
+    .slider{
+        background:#96bf31;
+        height:150px;
+    }
+    ul.breadcrumb {
+	padding: 30px 16px;
+	list-style: none !important;
+	background-color: #96bf31;
+	}
+	ul.breadcrumb li {
+	display: inline;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-family:ubuntu;
+	}
+	ul.breadcrumb li+li:before {
+	padding: 8px;
+	color: #ffffff;
+	content: "/\00a0";
+	}
+	ul.breadcrumb li a {
+	color: #ffffff;
+	text-decoration: none;
+	}
+	ul.breadcrumb li a:hover {
+	color: #fff;
+	text-decoration: none;
+	}
+	a{
+	background-color: transparent;
+	}
+	.el{
+	color: #ffffff !important;	
+	}
+    h1{
+	color: #ffffff !important;	
+	margin-top:50px;
+    font-family:ubuntu;
+    font-size: 2.5rem;
+    line-height: 1.35em;
+	}
+    h5{
+    color: #ffffff !important; 
+    font-family:ubuntu;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+        line-height: 1.35em; 
+    }
+    .widget .course_cat_nav {
+    background: #414;
+    color: #FFF;
+    border-radius: 4px;
+    overflow: hidden;
+    clear: both;
+}
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+{# .widget ul li {
+   
+    border-bottom: 1px dotted rgba(0,0,0,.08);
+    
+} #}
+.widget .course_cat_nav ul li a {
+    color:#fff;    
+    padding: 18px 24px;
+    font-size: 11px;
+    line-height: 1.5;
+    font-weight: 600;
+    display: inline-block;
+    width: 100%;
+    text-transform: uppercase;
+}
+a, a:active, a:focus, a:hover {
+    text-decoration: none;  
+}
+.widget .course_cat_nav ul li a span {
+    float: right;
+    font-size: 80%;
+    background: #96bf31;
+    color: #FFF;
+    padding: 2px 7px;
+    border-radius: 2px;
+}
+.rower{
+    margin-top:30px;
+}
+    </style>
+    <div class="main_slider slider" >
+		<div class="container fill_height">        
+                <h1>{{categorielibelle.libelle}}</h1>
+            <h5>1200+ students enrolled</h5>
+        <div class="row align-items-center fill_height">
+            <div class="col">
+                
+				</div>
+			</div>
+		</div>
+	</div>
+    {% endblock %}
+    {% block section %}
+    <div class="container">
+    <div class="row rower">
+    <div class="col-lg-3" >
+    <div class="widget">
+        <div class="course_cat_nav">
+        <ul class=" name"><li class="">
+        <a href="">All Courses</a></li>
+        {% for lescategories in categories %}
+        	<li class="cat-item cat-item-34" data-slug="technology"><a href="" title="1500+ students enrolled">{{lescategories.libelle}}<span>3</span></a>
+        </li>
+        {% endfor %}
+            {# <li class="cat-item cat-item-37" data-slug="photography-2"><a href="" title="400+ students enrolled">Photographie<span>2</span></a>
+        </li>
+            <li class="cat-item cat-item-33" data-slug="marketing"><a href="" title="1500+ students enrolled">Marketing<span>2</span></a>
+        </li>
+            <li class="cat-item cat-item-38" data-slug="devperso"><a href="" title="1100+ students enrolled">Développement personnel<span>1</span></a>
+        </li>
+            <li class="cat-item cat-item-35" data-slug="business"><a href="" title="1500+ students enrolled">Business<span>5</span></a>
+        </li>
+            <li class="cat-item cat-item-36 current-cat" data-slug="bureautique"><a href="" title="1200+ students enrolled">Bureautique<span>2</span></a>
+        </li> #}
+        </ul>
+        </div>
+        </div>
+        </div>
+        <div class="col-lg-9"></div>
+        </div>
+        </div>
+{% endblock %}
+{# {% for catecour in categorie %}
+{{catecour.titreCours}}
+<img src="data:image/png;base64,{{ catecour.image }}" width="300" height="500" alt="">
+{% endfor %} #}

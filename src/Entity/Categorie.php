@@ -25,7 +25,10 @@ class Categorie
      */
     private $cours;
 
-    
+    /**
+     * @ORM\Column(type="blob")
+     */
+    private $imgC;
 
     public function getId(): ?int
     {
@@ -44,5 +47,17 @@ class Categorie
         return $this;
     }
 
-   
+    public function getImgC()
+    {
+        return $this->imgC;
+    }
+
+    public function setImgC($imgC): self
+    {
+        $this->imgC = $imgC;
+
+        return $this;
+    }
+
+
 }

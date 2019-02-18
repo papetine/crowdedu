@@ -17,7 +17,7 @@ class Projet
     private $id;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text" , nullable=true)
      */
     private $description;
 
@@ -37,27 +37,27 @@ class Projet
     private $adresse;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $parcoursEdu;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255 ,nullable=true)
      */
     private $opportinute;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255 , nullable=true)
      */
     private $attentes;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255 , nullable=true)
      */
     private $motivation;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255 , nullable=true)
      */
     private $perspective;
      /**
@@ -70,6 +70,20 @@ class Projet
      *
      */
     private $dons;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="projets",cascade={"persist"})
+     */
+    private $user;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $statut;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $subvention;
     
     public function getId(): ?int
     {
@@ -180,6 +194,30 @@ class Projet
     public function setPerspective(string $perspective): self
     {
         $this->perspective = $perspective;
+
+        return $this;
+    }
+
+    public function getStatut(): ?int
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(int $statut): self
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getSubvention(): ?bool
+    {
+        return $this->subvention;
+    }
+
+    public function setSubvention(bool $subvention): self
+    {
+        $this->subvention = $subvention;
 
         return $this;
     }
