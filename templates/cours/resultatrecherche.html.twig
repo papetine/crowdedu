@@ -1,0 +1,7 @@
+
+{% for pro in produit %}
+{{pro.titreCours}}
+<div class="product_image">
+<img src="data:image/png;base64,{{ pro.image }}" width="200" height="150" alt="">
+</div>
+{% endfor %}

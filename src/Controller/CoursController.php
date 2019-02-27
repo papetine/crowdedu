@@ -8,6 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
 use App\Repository\CoursRepository;
 use App\Repository\CategorieRepository;
+use App\Form\RechercheType;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Cours;
 use App\Entity\Categorie;
 
@@ -38,11 +41,11 @@ class CoursController extends AbstractController
         ]);
     }
     
-    /**
+/**
      * @Route("/cour/{slug}", name="cour")
      * 
      */
-    public function findOneCour($slug,CoursRepository $coursOnerepo)
+    public function findOneCour($slug,CoursRepository $coursOnerepo) :Response
     {
         $courID = $coursOnerepo->findOneBy(['slug'=> $slug]);
         $courID->setImage(base64_encode(stream_get_contents($courID->getImage())));
@@ -73,7 +76,45 @@ class CoursController extends AbstractController
     public function finaliserCommande(Cours $cours)
     {
 
-        return $this->render('cours/finaliser_commande.html.twig', [
-           'cour'=>$cours ]);
+        return $this->render('panier/finaliser_commande.html.twig', [
+        'cour'=>$cours ]);
+
     }
+    /**
+     * @Route("/recherche", name="page_recherche",methods="GET")
+     * 
+     */
+    
+    public function rechercheProduits()
+    {
+        $form = $this->createForm(RechercheType::class);
+        return $this->render('cours/page_rechercheTraitement.html.twig', [
+            'form' => $form->createView()]);
+    }
+    /**
+     * @Route("/rechercheProduit/", name="page_rechercheTraitement")
+     */
+    public function rechercheTraitement(Request $request)
+    {
+    
+        $entityManager = $this->getDoctrine()->getManager();
+        $form = $this->createForm(RechercheType::class);
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            $chaine= $form['recherche']->getData();
+        }else
+        {
+            throw $this->createNotFoundException('La page n\'existe pas ');
+        }
+            
+        $findProduits = $entityManager->getRepository(Cours::class)->rechercheProduit($chaine);
+        foreach ($findProduits as $value) {
+            $value->setImage(base64_encode(stream_get_contents($value->getImage())));
+            }
+
+        if(!$findProduits) throw $this->createNotFoundException('La page n\'existe pas ');
+
+        return $this->render('cours/resultatrecherche.html.twig',array('produit'=>$findProduits));
+    }
+
 }

@@ -61,11 +61,11 @@
 		<div class="container fill_height">
         <ul class="breadcrumb">
 				<li class="el"><a href="#">Accueil</a></li>
-				<li class="el"><a href="#">Cart</a></li>				
+				<li class="el"><a href="#">Valider commande</a></li>				
 				{# <li style="color:#fff;font-family:ubuntu;">{{cour.titreCours}}</li> #}
 				</ul>
-                <h1>Cart</h1>
-            <h5> Products in your cart</h5>
+                <h1>Paiement</h1>
+            <h5> Payer votre panier</h5>
         <div class="row align-items-center fill_height">
             <div class="col">
                 
@@ -75,31 +75,21 @@
 	</div>
     {% endblock %}
 {% block section %}
-        <div class="container">
-            <div class="row">
-            <div class="col-lg-8">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>Produits</th>
-                    <th>Prix</th>
-                    <th>Quantité</th>
-                    <th>Total</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for cours in cour.chapitres %}
-                <tr>
-                    <td></td>
-                    <td>{{cour.}}</td>
-                    <td>john@example.com</td>
-                    <td>john@example.com</td>
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            </div>
-            <div class="col-lg-4"></div> 
-            </div>
-            </div>
+    <div class="container">
+    {{form_start(form)}}
+    <div class="form-group"> 
+                                 
+                        {{form_row(form.pays,{'attr':{'class':'form-control'}}) }}
+                        </div> 
+                        <div class="form-group">       
+                        {{form_row(form.ville,{'attr':{'class':'form-control'}}) }}
+                        </div>
+                        <div class="form-group">       
+                        {{form_row(form.codePostal,{'attr':{'class':'form-control'}}) }}
+                        </div>
+                        <div class="form-group">       
+                        {{form_row(form.telephone,{'attr':{'class':'form-control'}}) }}
+                        </div>
+ {{ form_end(form) }}
+ </div>
 {% endblock %}

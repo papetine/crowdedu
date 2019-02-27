@@ -1,0 +1,252 @@
+{# 
+    <div class="span9">
+        <h2>Votre parnier</h2>
+        {% if app.session.flashBag.has('success') %}
+            <div class="alert alert-success">
+                {% for msg in app.session.flashBag.get('success') %}
+                    {{ msg }}
+                {% endfor %}
+            </div>
+        {% endif %}
+            <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Prix</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if(produits|length == 0) %}
+                <tr>
+                    <td colspan="4"><center>Aucun articles dans votre panier</center> </td>
+                </tr>
+            {% endif %}
+            {% for produit in produits %}
+                <form action="{{ path('page_ajouterPanier',{'id':produit.id}) }}" method="get">
+                    <tr>
+                        <td>{{ produit.titreCours }}</td>
+                        <td>{{ produit.prix  }}€</td>
+                        <td>{{ produit.prix }}€</td>
+                    </tr>
+                </form>
+            {% endfor %}
+
+            </tbody>
+        </table>
+        </div>
+ #}
+{% extends 'home/index.html.twig' %}
+	{% block categories %}{% endblock %}
+	{% block deal %}{% endblock %}
+	{% block options %}{% endblock %}
+	{% block latest %}{% endblock %}
+	{% block newsletter %}{% endblock %}
+	{% block meilleurs_ventes %}{% endblock %}
+	{% block cat %}{% endblock %}
+    {% block cours  %}{% endblock %}
+    {% set total = 0 %}
+	{% block background %}
+    <style>
+    .slider{
+        background:#96bf31;
+        height:200px;
+    }
+    ul.breadcrumb {
+	padding: 30px 16px;
+	list-style: none !important;
+	background-color: #96bf31;
+	}
+	ul.breadcrumb li {
+	display: inline;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-family:ubuntu;
+	}
+	ul.breadcrumb li+li:before {
+	padding: 8px;
+	color: #ffffff;
+	content: "/\00a0";
+	}
+	ul.breadcrumb li a {
+	color: #ffffff;
+	text-decoration: none;
+	}
+	ul.breadcrumb li a:hover {
+	color: #fff;
+	text-decoration: none;
+	}
+	a{
+	background-color: transparent;
+	}
+	.el{
+	color: #ffffff !important;	
+	}
+    h1{
+	color: #ffffff !important;	
+	margin-top:-30px;
+    font-family:ubuntu;
+	}
+    h5{
+    color: #ffffff !important; 
+    font-family:ubuntu;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    line-height: 1.35em; 
+    }
+    .tab{
+        color:#96bf31;
+        font-family: ubuntu;
+        font-size:14px;
+    }
+    .thead{
+       font-size:15px; 
+       color:#686868;
+    }
+    h2{
+       font-family: ubuntu;  
+    }
+    .button{
+    background:#96bf31;
+    color:#fff !important;
+    width:300px;
+    height:35.5px;
+    font-family: ubuntu; 
+    margin-left:27.5px;
+    font-size: 100%;
+    line-height: 1;
+    cursor: pointer;
+    position: relative;
+    text-decoration: none;
+    overflow: visible;
+    padding: .618em 1em;
+    font-weight: 700;
+    border-radius: 3px;
+    left: auto;
+    }
+    .button:hover{
+        background:#096ea2;
+        box-shadow: 1 2px 3px 0 rgba(0,0,0,.2);
+        
+    }
+    #button{
+         background:#96bf31;
+    color:#fff !important;
+    width:250px;
+    height:35.5px;
+    }
+    .delete{    
+    display: block;
+    font-size: 1.5em;
+    height: 1em;
+    width: 1em;
+    text-align: center;
+    line-height: 1;
+    border-radius: 100%;
+    color: red!important;
+    text-decoration: none;
+    font-weight: 700;
+    border: 0;
+    
+}
+    .delete:hover{
+    background:red;
+    color:#fff ! important;
+}
+#a{
+    text-decoration: none;s
+}
+    }
+    </style>
+    <div class="main_slider slider" >
+		<div class="container fill_height">
+        <ul class="breadcrumb">
+				<li class="el"><a href="#">Accueil</a></li>
+				<li class="el"><a href="#">Panier</a></li>				
+				{# <li style="color:#fff;font-family:ubuntu;">{{cour.titreCours}}</li> #}
+				</ul>
+                <h1>Panier</h1>
+            <h5>Produits dans votre panier</h5>
+        <div class="row align-items-center fill_height">
+            <div class="col">
+                
+				</div>
+			</div>
+		</div>
+	</div>
+    {% endblock %}
+{% block section %}
+        <div class="container" style="margin-top:30px;">
+          {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="alert alert-success" id="flash">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+            <div class="row">           
+            <div class="col-lg-8">
+            <table class="table table-hover">
+                <thead class="thead">
+                <tr>
+                    <th></th>
+                    <th>Images</th>
+                    <th>Produits</th>
+                    <th>Prix</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody class=" tab">
+            {% for produit in produits %}
+            <form action="{{ path('page_ajouterPanier',{'id':produit.id}) }}" method="get">                  
+                <tr>
+                    <td><a href="{{ path('page_supprimerPanier',{'id':produit.id}) }}" id="a"><i class="delete">×</i></a></td>
+
+                    <td><img src="data:image/png;base64,{{ produit.image }}" width="40" height="40" alt="">  
+					</td> 
+                    <td>{{produit.titreCours}}</td>
+                    <td>{{produit.prix}}</td>
+                    <td>{{produit.prix}}</td>
+                </tr>
+                </form>
+                 {% set total = total + (produit.prix ) %}
+                {% endfor %}
+                </tbody>
+            </table>
+             <a href="#" class="btn " id="button">
+            Modifier le panier</a>
+            
+        
+            </div>
+            <div class="col-lg-4">
+            <div class="cart-collaterals">
+				<div class="cart_totals ">
+	<h2>Total panier</h2>
+	<table class="table table-hover">
+		<tbody>
+        <tr class="cart-subtotal">
+			<th class="thead">Sous-total</th>
+			<td data-title="Sous-total"><span class="woocommerce-Price-amount  tab"><span class="woocommerce-Price-currencySymbol">CFA </span>{{total}}</span></td>
+		</tr>
+		<tr class="order-total">
+			<th class="thead">Total</th>
+			<td data-title="Total"><strong><span class="woocommerce-Price-amount  tab"><span class="woocommerce-Price-currencySymbol">CFA </span>{{total}}</span></strong> </td>
+		</tr>
+	</tbody>
+    </table>
+	<div class="wc-proceed-to-checkout">
+        <a href="{{path('valider_commande')}}" class="btn button">
+        Valider la commande</a>
+       
+        </div>
+    </div>
+			</div>
+            </div> 
+            </div>
+            </div>
+            <script>
+            $(function() {
+        $('#flash').delay(500).fadeIn('normal', function() {
+            $(this).delay(2500).fadeOut();
+        });
+        });
+            </script>
+{% endblock %}
