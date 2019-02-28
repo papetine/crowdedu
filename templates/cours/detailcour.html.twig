@@ -69,14 +69,14 @@
 	box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
 	width: 100%;
 	text-align: center;
-		border-radius: 2px;
+	border-radius: 2px;
 	letter-spacing: .1em;
 	position: relative;
 	transition: all .3s;
 	z-index: 1;
 	font-size: 12px;
-		font-weight: 600;
-		outline: 0;
+	font-weight: 600;
+	outline: 0;
 	}
 	.button:hover{
 	color:#fff;
@@ -178,8 +178,15 @@
 				</div>
 				<div class="col-lg-3">
 				<div class="card cadre">
-			<div class="card-body">				
-				<a href="{{path('show_commande', {'slug':cour.slug})}}" ><button type="button" class="btn button">PRENDRE CETTE FORMATION</button></a>				
+			<div class="card-body">
+			{% if panier[cour.id] is not defined %}
+			 <form action="{{ path('page_ajouterPanier',{'id':cour.id}) }}" method="get">
+				<button type="submit" class="btn button">PRENDRE CETTE FORMATION</button>
+				</form>
+				 {% else %}
+                    <a class="btn btn-success" href="{{ path('page_panier')}}">Déja au panier</a>
+                {% endif %}
+				{# <a href="{{ path('page_ajouterPanier',{'id':cour.id} ) }}" ><button type="button" class="btn button">PRENDRE CETTE FORMATION</button></a>				 #}
 				<p class="card-text prix">CFA {{ cour.prix}} pour 10 jours</p>
 				<ul >
 					<li class="badge">{{cour.duree}}</li><br>
@@ -276,7 +283,7 @@
 		<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
 	</div>
 	</div>
-	</div>
+</div>
 
 	{% endblock %}	
 	{% block script %}

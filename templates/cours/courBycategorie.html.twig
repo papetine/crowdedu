@@ -97,9 +97,29 @@ a, a:active, a:focus, a:hover {
     padding: 2px 7px;
     border-radius: 2px;
 }
-.rower{
-    margin-top:30px;
-}
+    .rower{
+        margin-top:30px;
+    }
+    .rowerer{
+        padding:50px;
+        border-top:1px solid lightgrey;
+    }
+    .liste{
+        margin-top:30px;
+    }
+    span[id^="grade-"]:hover {
+						opacity: 0.5;
+				}
+	#etoile{
+			
+			list-style-type: none;
+	}
+	#lio{
+		color:#FFCB10;
+	}
+    .diguanter{
+        height:100px
+    }
     </style>
     <div class="main_slider slider" >
 		<div class="container fill_height">        
@@ -125,23 +145,63 @@ a, a:active, a:focus, a:hover {
         	<li class="cat-item cat-item-34" data-slug="technology"><a href="" title="1500+ students enrolled">{{lescategories.libelle}}<span>3</span></a>
         </li>
         {% endfor %}
-            {# <li class="cat-item cat-item-37" data-slug="photography-2"><a href="" title="400+ students enrolled">Photographie<span>2</span></a>
-        </li>
-            <li class="cat-item cat-item-33" data-slug="marketing"><a href="" title="1500+ students enrolled">Marketing<span>2</span></a>
-        </li>
-            <li class="cat-item cat-item-38" data-slug="devperso"><a href="" title="1100+ students enrolled">Développement personnel<span>1</span></a>
-        </li>
-            <li class="cat-item cat-item-35" data-slug="business"><a href="" title="1500+ students enrolled">Business<span>5</span></a>
-        </li>
-            <li class="cat-item cat-item-36 current-cat" data-slug="bureautique"><a href="" title="1200+ students enrolled">Bureautique<span>2</span></a>
-        </li> #}
         </ul>
         </div>
         </div>
         </div>
-        <div class="col-lg-9"></div>
+            <div class="col-lg-9">
+            <div class="row">
+            <div class="col-lg-12">
+            {{ render(controller('App\\Controller\\CoursController::rechercheProduits')) }}
+            </div>
+            <div class="col-lg-12 diguanter"></div>
+                <div class="col-lg-12">
+                {% for ccrs in categorie %}
+				<ul id="course-list" class="item-list" role="main">
+                <li class="liste">
+                <div class="row rowerer">
+                <div class="col-md-4 col-sm-4">
+                    <a href="#">
+					    <img src="data:image/png;base64,{{ ccrs.image }}" width="240" height="135" alt="">
+					</a>
+                </div>
+                <div class="col-md-8 col-sm-8">
+                <div class="item"><div class="item-title"><a href="#">{{ccrs.titreCours}}</a></div></div>
+                <div class="item-meta">
+                    <strong class="course-star-rating">
+                        <ol id="etoile">
+								<li class="li" id="lio"> </li>
+							</ol><i class="hide">4.3</i>
+                        <small class="bp_blank_stars"></small>
+                        <small style="width:86%;" class="bp_filled_stars"></small>
+                    </strong>
+                    <strong>( 3 AVIS )</strong> <div class="students"> 9 PARTICIPANTS</div>
+                </div>
+                </div>
+                </li>
+                </ul>
+                {% endfor %}
+                </div>
+            <div>
+            </div>
         </div>
+        
         </div>
+    <script src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
+	<script src="{{asset('js/rate.class.js')}}"></script>
+        <script type="text/javascript">
+		$(function() {
+				$('.li').each(function() {
+						$(this).append(objRate.initRate(objRate.maxRate));
+				});
+
+				$('.fa-star-o, .fa-star').on('mouseenter mouseleave', objRate.hoverHandler);
+				$('.fa-star-o, .fa-star').on('click', objRate.clickHandler);
+		});
+		$("#hide").click(function(){
+		$(".tr").toggle();
+		});
+		</script>
 {% endblock %}
 {# {% for catecour in categorie %}
 {{catecour.titreCours}}

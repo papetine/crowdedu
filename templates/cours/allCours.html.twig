@@ -1,5 +1,6 @@
 {% extends 'home/index.html.twig' %}
 {% block meilleurs_ventes %}{% endblock %}
+{% block options %}{% endblock %}
 {% block categories %}
 <div class="banner">
 		<div class="container">
@@ -16,6 +17,7 @@
 			</div>
 		</div>
 	</div>
+	
 	{% endblock %}
 	{% block cat %}
 		<div class="new_arrivals">
@@ -37,7 +39,18 @@
 {% block cours  %}
 <style>
 .rower{
-	padding-left:20px;
+	position: relative;
+	border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+	transition: box-shadow .3s;
+	border-radius:10px;
+	border: 1px solid #ccc;
+	background: #fff;
+	float: left;
+	
+}
+.rower:hover{
+box-shadow: 0 0 22px rgba(33,33,33,.2);
 }
 .ptides{
     overflow: hidden;
@@ -50,44 +63,74 @@
     color: #29303B;
     margin-bottom: 10px;
 }
-.prix{
-font-family:ubuntu;
-color:#96bf31;
-font-size: 14px;
-padding-left: 2px;
-margin-left:7px;
-margin-top:10px;
-text-transform: uppercase;
+	.titre{
+	font-family:ubuntu;
+	color:#96bf31;
+	font-size: 16px;
+    line-height: 1.2;
+	}
+	.titre::first-letter {
+    text-transform: uppercase;
 }
-a:link 
-{ 
-text-decoration:none; 
-} 
+	a:link 
+	{ 
+	text-decoration:none; 
+	} 
+	#image{
+	transition: box-shadow .3s;
+	border-radius:6px;
+	border: 1px solid #ccc;
+	background: #fff;
+	float: left;
+	}
+	.subs{
+		font-size: 16px;
+    margin: 0;
+    color: #70c989;
+    font-weight: 600;
+    float: right;
+	}
+	.course_block_bottom{
+	    clear: both;
+    width: 100%;
+    display: inline-block;
+    margin-top: 20px;
+	}
+	.ic{
+		float: left;
+    color: #bbb;
+    font-size: 16px
+	}
+	.amount{
+		color:#96bf31;
+		margin-left:90px
+	}
 </style>
-		<div class="row ">
-				<div class="col" style="background-size:50%;">
-					<div class="product-grid " data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
-                {% for produit in produits %}
-						<!-- Product 1 -->						
-						<div class="product-item men ">
-							<div class="product discount product_filter">
-								<div class="product_image">
-								<a href="{{path('cour', {'slug':produit.slug})}}">
-									<img src="data:image/png;base64,{{ produit.image }}" width="240" height="135" alt="">
-								</a>
-								</div>
-								<div class="favorite favorite_left"></div>
-								<div class="product_info">
-									<span class="product_name ptides"><a href="{{path('cour', {'slug':produit.slug})}}">{{produit.petitDescription}}</a></span>
-								</div>
-								<div><span class="prix">{{produit.prix}}CFA </span></div>
-							</div>
-							<div class="red_button add_to_cart_button"><a href="{{ path('page_ajouterPanier',{'id':produit.id} ) }}">Ajouter au panier</a></div>
-						</div>
-                        {% endfor %}
+		
+					<div class="container" >
+					<div class="row">
+					{% for produit in produits %}
+					<div class="col-lg-4 cole"style="padding:20px;">
+					<div class="card rower" style="width:350px">
+					<a href="{{path('cour', {'slug':produit.slug})}}">
+						<img src="data:image/png;base64,{{ produit.image }}" width="350" height="200" alt="" id="image">
+					</a>		
+					<div class="card-body">
+				<h4 class="card-title titre">{{produit.titreCours}}</h4>
+					<div class="course_block_bottom">
+					<span class="fa fa-users ic">39</span>
+					<div class="course_price">
+						<strong>
+							<span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">CFA</span>{{produit.prix}}</span><span class="subs"> pour {{produit.duree}} &#65279;</span>
+						</strong>
 					</div>
-				</div>
+				 </div>
 			</div>
+			</div>
+			</div>
+			 {% endfor %}
+			 </div>
+			 </div>
 {% endblock %}
 	
 
